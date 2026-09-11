@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# Local database (contains plaintext credentials — keep out of git)
+data/
+
+# Logs / OS files
+*.log
+.DS_Store

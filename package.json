@@ -1,0 +1,14 @@
+{
+  "name": "instagram-login-clone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Responsive Instagram login clone — full-stack build with plaintext SQLite storage and a post-login 'under maintenance' page.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
